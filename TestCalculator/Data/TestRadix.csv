@@ -1,0 +1,4 @@
+﻿number, radix, expected
+10, 2, '1010
+10, 16, 'A
+1, 2, '1

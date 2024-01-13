@@ -73,6 +73,7 @@ namespace TestCalculator
             Assert.AreEqual(expected, calculation.Execute(operation));
         }
 
+        [TestMethod]
         [DataSource("Microsoft.VisualStudio.TestTools.DataSource.CSV", @".\Data\TestPower.csv", "TestPower#csv", DataAccessMethod.Sequential)]
         public void TestPower()
         {
@@ -116,5 +117,27 @@ namespace TestCalculator
             int actual = polynomial.Cal(x);
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestRadixException()
+        {
+            Radix r = new Radix(10);
+            r.ConvertDecimalToAnother(1);
+        }
+
+        [TestMethod]
+        [DataSource("Microsoft.VisualStudio.TestTools.DataSource.CSV", @".\Data\TestRadix.csv", "TestRadix#csv", DataAccessMethod.Sequential)]
+        public void TestRadix()
+        {
+            int number = int.Parse(TestContext.DataRow[0].ToString());
+            int radix = int.Parse(TestContext.DataRow[1].ToString());
+            String expected = TestContext.DataRow[2].ToString();
+            expected = expected.Substring(1);
+            Radix r = new Radix(number);
+
+            Console.WriteLine(r.ConvertDecimalToAnother(4));
+            Assert.AreEqual(expected, r.ConvertDecimalToAnother(radix));
+        } 
     }
 }
